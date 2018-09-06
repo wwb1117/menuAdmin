@@ -7,6 +7,7 @@ import store from './store'
 import ElementUI from 'element-ui';
 // 引入代码填充,解决浏览器兼容问题n
 import 'babel-polyfill'
+import myBase from './utils/base'
 
 import 'element-ui/lib/theme-chalk/index.css' //引入elementUI主题样式
 
@@ -18,6 +19,7 @@ import './assets/css/simple-line-icons.css'
 import './assets/css/font.css'
 
 Vue.config.productionTip = false
+Vue.prototype.myBase = myBase
 
 // 进入页面重新获取屏幕可视高度
 var winheight = document.documentElement.clientHeight;

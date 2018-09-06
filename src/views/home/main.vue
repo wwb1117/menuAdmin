@@ -1,17 +1,17 @@
 <template>
     <div class="main_wrap">
-        <div class="main_top" v-text="$store.state.home.userInfo.user.buyerCompanyName"></div>
+        <div class="main_top">小贝点餐</div>
         <div class="main_content">
             <div class="main_cont_left">
                 <div class="main_cont_left_top">
                     今日简报
                 </div>
                 <ul class="main_jianbao_ul">
-                    <li><span :class="[myBase.isHasPerssion('首页统计') ? 'num' : '']">{{baseData.totalDeliverMoney |
+                    <li><span>{{baseData.totalDeliverMoney |
                             numFormat}}</span><br><span class="text">出库金额</span></li>
-                    <li :style="{borderLeft: '1px solid #E4E7ED', borderRight: '1px solid #E4E7ED'}"><span :class="[myBase.isHasPerssion('首页统计') ? 'num' : '']">{{baseData.totalInventoryMoney
+                    <li :style="{borderLeft: '1px solid #E4E7ED', borderRight: '1px solid #E4E7ED'}"><span>{{baseData.totalInventoryMoney
                             | numFormat}}</span><br><span class="text">库存金额</span></li>
-                    <li><span :class="[myBase.isHasPerssion('首页统计') ? 'num' : '']">{{baseData.totalPurchaseMoneyByWeek
+                    <li><span >{{baseData.totalPurchaseMoneyByWeek
                             | numFormat}}</span><br><span class="text">本周采购</span></li>
                 </ul>
                 <div class="main_cont_left_top">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div id="main_chart_right">
-                        <Echart :option="echartOpt"></Echart>
+                        <Echart style="width: 100%" :option="echartOpt"></Echart>
                     </div>
                 </div>
             </div>
@@ -137,96 +137,11 @@
                 $('#firstMenu_ul>[type=' + firid + ']').addClass('active')
                 $('#secondMenu_ul>[type=' + secid + ']').addClass('active')
                 this.$store.commit("setCurrSid", secid)
-            },
-            skipEvent(type) {
-                if (type == 1) {
-                    if (this.myBase.isHasPerssion('添加商品')) {
-                        this.$router.push({
-                            path: '/addGoods'
-                        })
-                        this.setMenu(1, 2)
-
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            duration: 1500,
-                            showClose: true,
-                            message: '对不起,你无此权限!'
-                        })
-                    }
-                }
-                if (type == 2) {
-                    if (this.myBase.isHasPerssion('新建采购单')) {
-                        this.$router.push({
-                            path: '/addPurchaseList/' + '1'
-                        })
-                        this.setMenu(34, 35)
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            duration: 1500,
-                            showClose: true,
-                            message: '对不起,你无此权限!'
-                        })
-                    }
-                }
-                if (type == 3) {
-                    if (this.myBase.isHasPerssion('新增入库单')) {
-                        this.$router.push({
-                            name: '新增入库',
-                            params: {
-                                type: '入库'
-                            }
-                        })
-                        this.setMenu(57, 58)
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            duration: 1500,
-                            showClose: true,
-                            message: '对不起,你无此权限!'
-                        })
-                    }
-                }
-                if (type == 4) {
-                    if (this.myBase.isHasPerssion('新增出库单')) {
-                        this.$router.push({
-                            name: '新增入库',
-                            params: {
-                                type: '出库'
-                            }
-                        })
-                        this.setMenu(57, 66)
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            duration: 1500,
-                            showClose: true,
-                            message: '对不起,你无此权限!'
-                        })
-                    }
-                }
-                if (type == 5) {
-                    if (this.myBase.isHasPerssion('商品库存')) {
-                        this.$router.push({
-                            path: '/repertoryList'
-                        })
-                        this.setMenu(57, 71)
-                    } else {
-                        this.$message({
-                            type: 'warning',
-                            duration: 1500,
-                            showClose: true,
-                            message: '对不起,你无此权限!'
-                        })
-                    }
-                }
             }
+
         },
         activated() {
-            if (this.myBase.isHasPerssion('首页统计')) {
-                // this.getData()
-            }
+
         }
 
     }

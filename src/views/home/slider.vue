@@ -5,11 +5,7 @@
                 <img src="../../../static/img/logo.png" alt="妈妈去哪儿">
             </div>
             <ul id="firstMenu_ul">
-                <li @click="firstMenuClickEvent($event)" :type="'shouye'" :text="'首页'" :class="[$store.state.home.menuSetting.currFid ? '' : 'active' , 'fa fa-desktop']">首页</li>
-                <li @click="firstMenuClickEvent($event)" v-for="(item, index) in baseMenu" :key="item.resourceId" :text="item.resourceName"
-                    :type="item.resourceId" :class="[$store.state.home.menuSetting.currFid == item.resourceId ? 'active' : '', iconArr[index]]"
-                    v-text="item.resourceName"></li>
-                <!-- <li @click="oderlistClick($event)" class="fa fa-file-text-o">订单</li> -->
+                <li @click="firstMenuClickEvent($event)" :type="'shouye'" :text="'首页'">首页</li>
             </ul>
             <el-popover placement="bottom" v-model="popoverisShow" width="127" trigger="click" :style="{textAlign: 'center'}">
                 <div @click="editPasswordEvent" class="dropdown">
@@ -24,22 +20,11 @@
                             <img src="../../../static/img/login/adm.png" alt="头像">
                         </div>
                         <br>
-                        <span>{{myBase.splitUserName($store.state.home.userInfo.user.userName)}}</span>
+                        <span>wwwwww</span>
                         <span :class="[popoverisShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom']"></span>
                     </div>
                 </div>
             </el-popover>
-        </div>
-        <div v-show="$store.state.home.menuSetting.isNextMenuShow" class="silder_right">
-            <div class="silder_right_top">
-                <h4 :style="{textAlign: 'center', margin: '0', padding: '0', lineHeight: '45px', color: '#313131'}"
-                    v-text="nextMenuTitle"></h4>
-            </div>
-            <ul id="secondMenu_ul">
-                <li @click="secondMenuClickEvent($event)" v-for="(item, index) in $store.state.home.menuSetting.currSlist"
-                    :class="[index == 0 && !$store.state.home.menuSetting.currSid ? 'active' : '', $store.state.home.menuSetting.currSid == item.resourceId ? 'active' : '']"
-                    :routerUrl="item.frontPath" :type="item.resourceId" :key="item.resourceId" v-text="item.resourceName"></li>
-            </ul>
         </div>
     </div>
 </template>
@@ -48,15 +33,11 @@
     // import api from 'api/login'
     export default {
         name: "slider",
-        props: ["menuList"],
         data() {
             return {
                 baseMenu: null,
                 iconArr: ["fa fa-th", "fa fa-file-text-o", "fa fa-clipboard", "fa fa-cubes", "fa fa-user-o", "fa fa-gear"],
-                popoverisShow: false,
-                nextMenuList: this.$store.state.home.menuSetting.currSlist,
-                nextMenuMap: {},
-                nextMenuTitle: '商品'
+                popoverisShow: false
             };
         },
         computed: {},
@@ -121,26 +102,7 @@
             }
         },
         created() {
-            this.baseMenu = this.$store.state.home.userInfo.menuList
-            this.nextMenuMap = this.$store.state.home.nextMenuMap
-            var perssionArr = []
 
-            for (var item0 of this.baseMenu) {
-                if (item0.childMenus) {
-                    for (var item1 of item0.childMenus) {
-                        perssionArr.push(item1.resourceName)
-                        if (item1.childMenus) {
-                            for (var item2 of item1.childMenus) {
-                                perssionArr.push(item2.resourceName)
-                            }
-                        }
-                    }
-                }
-            }
-
-            console.log(perssionArr)
-
-            this.$store.commit("setPerssionArr", perssionArr)
         }
 
     };
