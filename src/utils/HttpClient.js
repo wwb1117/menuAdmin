@@ -1,9 +1,8 @@
 import axios from 'axios'
-import Promise from 'es6-promise'
 import qs from 'qs'
-import { Message } from 'element-ui';
+// import { Message } from 'element-ui';
 import { Loading } from 'element-ui'
-import router from 'router/index'
+// import router from 'router/index'
 
 // axios 配置
 axios.defaults.withCredentials = true;
@@ -46,81 +45,9 @@ axios.interceptors.response.use(
 function checkStatus(response) {
     return new Promise((resolve, reject) => {
         if (response.status === 200) {
-            if (response.data.result === 1){
-                resolve(response.data)
-            }else if (response.data.result === 2){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-                })
-                reject(response.data)
-            }else if (response.data.result === 3){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-                })
-                reject(response.data)
-            }else if (response.data.result === 4){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-                })
-                reject(response.data)
-            }else if (response.data.result === 5){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-                })
-                reject(response.data)
-            }else if (response.data.result === 6){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-                })
-                reject(response.data)
-            }else if (response.data.result === 7){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-
-                })
-                reject(response.data)
-            }else if (response.data.result === 8){
-                Message.warning({
-                    message: response.data.message,
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500,
-                    onClose: function(){
-                        router.push({path:'/login'})
-                    }
-                })
-                reject(response.data)
-            }else{
-                Message.warning({
-                    message:'未知异常',
-                    showClose: true,
-                    type: 'warning',
-                    duration: 1500
-
-                })
-                reject(response.data)
-            }
 
         } else {
-            reject(response.data)
+
         }
 
     })

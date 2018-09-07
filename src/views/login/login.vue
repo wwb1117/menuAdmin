@@ -34,8 +34,8 @@
             return {
                 isRemPwd: true,
                 userInfo: {
-                    loginCode: "",
-                    loginPassword: ""
+                    username: "",
+                    pwd: ""
                 }
             };
         },
