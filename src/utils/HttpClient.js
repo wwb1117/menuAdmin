@@ -8,7 +8,7 @@ import { Loading } from 'element-ui'
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 50000;
 // 根据实际情况，调整为服务器地址
-axios.defaults.baseURL = process.env.API_ROOT_BASE;
+axios.defaults.baseURL = '/api';
 
 var loader = null
 
@@ -44,12 +44,16 @@ axios.interceptors.response.use(
 
 function checkStatus(response) {
     return new Promise((resolve, reject) => {
+        console.log(response)
         if (response.status === 200) {
-
+            if (response.data.code === 1) {
+                resolve(response.data)
+            } else {
+                reject(response.data)
+            }
         } else {
-
+            reject(response.data)
         }
-
     })
 }
 

@@ -7,12 +7,12 @@
             <div class="login_content">
                 <div class="login_title">登录</div>
                 <div class="login_input_wrap">
-                    <el-input placeholder="账号" v-model="userInfo.loginCode" @keyup.enter.native="loginEvent" :style="{width: '320px'}"
+                    <el-input placeholder="账号" v-model="userInfo.username" @keyup.enter.native="loginEvent" :style="{width: '320px'}"
                         clearable>
                     </el-input>
                 </div>
                 <div class="login_input_wrap">
-                    <el-input placeholder="密码" type="password" v-model="userInfo.loginPassword" @keyup.enter.native="loginEvent"
+                    <el-input placeholder="密码" type="password" v-model="userInfo.pwd" @keyup.enter.native="loginEvent"
                         :style="{width: '320px'}" clearable>
                     </el-input>
                 </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    // import lapi from 'api/login'
+    import lapi from 'api/login'
     export default {
         data() {
             return {
@@ -42,7 +42,7 @@
         computed: {},
         methods: {
             loginEvent() {
-                if (this.userInfo.loginCode == "") {
+                if (this.userInfo.username == "") {
                     this.$message({
                         message: "请输入账号",
                         showClose: true,
@@ -50,7 +50,7 @@
                     });
                     return;
                 }
-                if (this.userInfo.loginPassword == "") {
+                if (this.userInfo.pwd == "") {
                     this.$message({
                         message: "请输入密码",
                         showClose: true,
@@ -65,13 +65,9 @@
                     window.localStorage.removeItem("user");
                 }
 
-                // lapi.login(this.userInfo).then(reponse => {
-                //     sessionStorage.setItem("user", JSON.stringify(this.userInfo));
-                //     this.$store.commit("setUserInfo", reponse.data);
-                //     this.$router.push({
-                //         path: "/main"
-                //     });
-                // });
+                lapi.login(this.userInfo).then(reponse => {
+                    console.log(reponse)
+                });
             }
         },
         activated() {
@@ -82,8 +78,8 @@
                 this.userInfo = olduser;
             } else {
                 this.userInfo = {
-                    loginCode: "",
-                    loginPassword: ""
+                    username: "",
+                    pwd: ""
                 };
             }
         }
