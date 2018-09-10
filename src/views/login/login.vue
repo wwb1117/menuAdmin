@@ -66,7 +66,9 @@
                 }
 
                 lapi.login(this.userInfo).then(reponse => {
-                    console.log(reponse)
+                    this.$router.push({
+                        path: '/main'
+                    });
                 });
             }
         },

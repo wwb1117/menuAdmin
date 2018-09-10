@@ -5,7 +5,10 @@
                 <img src="../../../static/img/logo.png" alt="妈妈去哪儿">
             </div>
             <ul id="firstMenu_ul">
-                <li @click="firstMenuClickEvent($event)" :type="'shouye'" :text="'首页'">首页</li>
+                <li :type="'shouye'" :text="'首页'" class="fa fa-desktop active">首页</li>
+                <li :type="'shouye'" :text="'商品'" class="fa fa-desktop">商品</li>
+                <li :type="'shouye'" :text="'订单'" class="fa fa-desktop">订单</li>
+                <li :type="'shouye'" :text="'其他'" class="fa fa-desktop">其他</li>
             </ul>
             <el-popover placement="bottom" v-model="popoverisShow" width="127" trigger="click" :style="{textAlign: 'center'}">
                 <div @click="editPasswordEvent" class="dropdown">
