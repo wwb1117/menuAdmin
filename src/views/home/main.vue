@@ -11,7 +11,7 @@
                             numFormat}}</span><br><span class="text">出库金额</span></li>
                     <li :style="{borderLeft: '1px solid #E4E7ED', borderRight: '1px solid #E4E7ED'}"><span>{{baseData.totalInventoryMoney
                             | numFormat}}</span><br><span class="text">库存金额</span></li>
-                    <li><span >{{baseData.totalPurchaseMoneyByWeek
+                    <li><span>{{baseData.totalPurchaseMoneyByWeek
                             | numFormat}}</span><br><span class="text">本周采购</span></li>
                 </ul>
                 <div class="main_cont_left_top">

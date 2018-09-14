@@ -5,10 +5,10 @@
                 <img src="../../../static/img/logo.png" alt="妈妈去哪儿">
             </div>
             <ul id="firstMenu_ul">
-                <li :type="'shouye'" :text="'首页'" class="fa fa-desktop active">首页</li>
-                <li :type="'shouye'" :text="'商品'" class="fa fa-desktop">商品</li>
-                <li :type="'shouye'" :text="'订单'" class="fa fa-desktop">订单</li>
-                <li :type="'shouye'" :text="'其他'" class="fa fa-desktop">其他</li>
+                <li @click="firstMenuClickEvent($event, 1)" :text="'统计'" class="fa fa-line-chart active">统计</li>
+                <li @click="firstMenuClickEvent($event, 2)" :text="'商品'" class="fa fa fa-th">商品</li>
+                <li @click="firstMenuClickEvent($event, 3)" :text="'订单'" class="fa fa-file-text-o">订单</li>
+                <li @click="firstMenuClickEvent($event, 4)" :text="'桌码'" class="fa fa-bullseye">桌码</li>
             </ul>
             <el-popover placement="bottom" v-model="popoverisShow" width="127" trigger="click" :style="{textAlign: 'center'}">
                 <div @click="editPasswordEvent" class="dropdown">
@@ -39,56 +39,28 @@
         data() {
             return {
                 baseMenu: null,
-                iconArr: ["fa fa-th", "fa fa-file-text-o", "fa fa-clipboard", "fa fa-cubes", "fa fa-user-o", "fa fa-gear"],
                 popoverisShow: false
             };
         },
         computed: {},
         methods: {
-            firstMenuClickEvent($event) {
+            firstMenuClickEvent($event, type) {
                 $('#firstMenu_ul>li').removeClass('active')
                 var tha = $event.currentTarget
-                var type = $(tha).attr('type')
-                var text = $(tha).attr('text')
 
                 $(tha).addClass('active')
-                if (type == 'shouye') {
-                    this.$store.commit('setNextMenuShow', false)
+                if (type == 1) {
                     this.$router.push({
                         path: '/main'
-                    });
-                    return
-                } else {
-                    this.$store.commit('setNextMenuShow', true)
+                    })
                 }
-                this.baseMenu.forEach((item, index) => {
-                    if (type == item.resourceId) {
-                        this.nextMenuList = item.childMenus
-                        this.$store.commit("setCurrFid", type)
-                        this.$store.commit("setCurrSid", this.nextMenuList[0].resourceId)
-                        this.$store.commit("setCurrSlist", this.nextMenuList)
-                    }
-                });
-
-                this.nextMenuTitle = text
-                this.$router.push({
-                    path: this.nextMenuList[0].frontPath
-                });
+                if (type == 4) {
+                    this.$router.push({
+                        path: '/deskCode'
+                    })
+                }
             },
-            secondMenuClickEvent($event) {
-                $('#secondMenu_ul>li').removeClass('active')
-                var tha = $event.currentTarget
-                var path = $(tha).attr('routerUrl')
-                var type = $(tha).attr('type')
 
-                this.$store.commit("setCurrSid", type)
-
-                $(tha).addClass('active')
-                this.$router.push({
-                    path: path
-                });
-
-            },
             loginOutEvent() {
                 this.myBase.confirm('你确定要退出登录?', () => {
                     // api.loginOut().then(() => {

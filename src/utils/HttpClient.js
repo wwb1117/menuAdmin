@@ -44,7 +44,6 @@ axios.interceptors.response.use(
 
 function checkStatus(response) {
     return new Promise((resolve, reject) => {
-        console.log(response)
         if (response.status === 200) {
             if (response.data.code === 1) {
                 resolve(response.data)

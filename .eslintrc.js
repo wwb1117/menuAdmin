@@ -27,7 +27,7 @@ module.exports = {
     ],
     // add your custom rules here
     'rules': {
-    //   script 不需要顶行的配置,迎合beatufy插件
+    //   Vue文件script 不需要顶行的配置, 需要四个空格,迎合beatufy插件,否则错误
       'indent': 'off',
       'vue/script-indent': [
         'error',

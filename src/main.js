@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
+import 'jquery'
 // 引入代码填充,解决浏览器兼容问题n
 import 'babel-polyfill'
 import myBase from './utils/base'

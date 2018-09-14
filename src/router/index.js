@@ -12,7 +12,8 @@ var router = new Router({
             name: 'home',
             component: home,
             children: [
-                {name: "首页", path: '/main', component: () => import('@/views/home/main')}
+                {name: "统计", path: '/main', component: () => import('@/views/home/main')},
+                {name: "桌码", path: '/deskCode', component: () => import('@/views/deskCode/index')}
             ]
         },
         {
