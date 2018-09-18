@@ -37,12 +37,12 @@
                     </div>
                     <div>
                         <div style="float: left; width: 250px;" v-for="item in imgCodeArr" :key="item.index">
-                            <el-card class="box-card">
+                            <el-card id="deskCodeImgWrap" class="box-card">
                                 <div slot="header" class="clearfix">
                                     <span>桌号: {{item.index}}</span>
                                 </div>
                                 <div>
-                                    <img :src="item.imgUrl" alt="小程序码">
+                                    <img style="width: 250px" :src="item.imgUrl" alt="小程序码">
                                 </div>
                             </el-card>
                         </div>
@@ -79,7 +79,7 @@
                         resArr.forEach((item, index) => {
                             var obj = {
                                 index: item.index,
-                                imgUrl: 'data:image/png;base64,' + btoa(new Uint8Array(item.codeData).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+                                imgUrl: item.codeUrl
                                 // imgUrl: item.codeData
                             }
 
