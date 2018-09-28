@@ -14,7 +14,7 @@
                         <el-form-item prop="goodName" label="商品名称">
                             <el-input v-model="formData.goodName" placeholder="请输入商品名称"></el-input>
                         </el-form-item>
-                        <el-form-item label="所属类目">
+                        <el-form-item prop="categoryId" label="所属类目">
                             <el-select v-model="formData.categoryId" placeholder="请选择所属类目">
                                 <el-option label="已付款" value="1"></el-option>
                                 <el-option label="已作废" value="2"></el-option>
@@ -30,7 +30,7 @@
                         其他信息
                     </div>
                     <div style="margin-top: 20px">
-                         <el-form-item label="大小规格">
+                         <el-form-item prop="sizeSku" label="大小规格">
                             <el-select v-model="formData.sizeSku" placeholder="请选择大小规格">
                                 <el-option label="已付款" value="1"></el-option>
                                 <el-option label="已作废" value="2"></el-option>
@@ -38,7 +38,7 @@
                         </el-form-item>
                     </div>
                     <div>
-                         <el-form-item label="做法规格">
+                         <el-form-item prop="cookSku" label="做法规格">
                             <el-select v-model="formData.cookSku" placeholder="请选择做法规格">
                                 <el-option label="已付款" value="1"></el-option>
                                 <el-option label="已作废" value="2"></el-option>
