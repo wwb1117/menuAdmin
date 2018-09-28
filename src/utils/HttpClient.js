@@ -111,13 +111,14 @@ export default {
             }
         }).then(checkStatus)
     },
-    put(url, params) {
+    put(url, data) {
         return axios({
             method: 'put',
             url,
-            params,
+            data: qs.stringify(data),
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
         }).then(checkStatus)
     },

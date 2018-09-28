@@ -7,6 +7,7 @@
             <ul id="firstMenu_ul">
                 <li @click="firstMenuClickEvent($event, 1)" :text="'统计'" class="fa fa-line-chart active">统计</li>
                 <li @click="firstMenuClickEvent($event, 2)" :text="'商品'" class="fa fa fa-th">商品</li>
+                <li @click="firstMenuClickEvent($event, 5)" :text="'类目'" class="fa fa fa-modx">类目</li>
                 <li @click="firstMenuClickEvent($event, 3)" :text="'订单'" class="fa fa-file-text-o">订单</li>
                 <li @click="firstMenuClickEvent($event, 4)" :text="'桌码'" class="fa fa-bullseye">桌码</li>
             </ul>
@@ -54,9 +55,19 @@
                         path: '/main'
                     })
                 }
-                if (type == 4) {
+                if (type == 2) { //商品
+                    this.$router.push({
+                        path: '/goodList'
+                    })
+                }
+                if (type == 4) { //桌码
                     this.$router.push({
                         path: '/deskCode'
+                    })
+                }
+                if (type == 5) { //类目
+                    this.$router.push({
+                        path: '/category'
                     })
                 }
             },
