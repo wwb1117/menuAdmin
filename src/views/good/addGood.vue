@@ -54,7 +54,7 @@
                             <div style="display: inline-block">
                                 <el-upload :action="uploadURL" ref="imgLicenseUpload" :data="sendData" :show-file-list="false"
                                     list-type="picture-card" :on-success="handleAvatarSuccess3" :before-upload="beforeAvatarUpload">
-                                    <img style="width: 80px; height: 80px;" v-if="imageUrl3" :src="imageUrl3" class="avatar">
+                                    <img style="width: 140px; height: 140px;" v-if="imageUrl3" :src="imageUrl3" class="avatar">
                                     <i v-if="!imageUrl3" class="el-icon-plus"></i>
                                 </el-upload>
                                 <!-- <span class="card_tip">经营许可<br>证照片</span> -->
@@ -79,7 +79,7 @@
         data() {
             return {
                 imageUrl3: "",
-                uploadURL: '',
+                uploadURL: '/api/f/upload',
                 sendData: {
                     file: "",
                     uploadType: 'erp'
@@ -148,6 +148,7 @@
             },
             handleAvatarSuccess3(res, file) {
                 this.formData.img = res.data.url
+
                 this.imageUrl3 = URL.createObjectURL(file.raw);
             },
             beforeAvatarUpload(file) {

@@ -62,7 +62,7 @@
                 },
                 tableData: [{
                     goodName: '小鸡炖蘑菇',
-                    img: 'http://192.168.1.104:3000/code/imgcode1.jpg',
+                    img: 'http://192.168.1.100:3000/code/imgcode1.jpg',
                     goodId: '77581',
                     categoryName: '精品类'
                 }]
