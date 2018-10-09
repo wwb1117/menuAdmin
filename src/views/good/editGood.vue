@@ -2,7 +2,7 @@
     <div>
         <div class="model_topcol">
             <span style="color: #409EFF">商品</span>
-            <span> - 新增</span>
+            <span> - 修改</span>
         </div>
         <div class="model_content" :style="{height: $store.state.modelContentHeight + 'px'}">
             <div class="model_content_inner form_wrap">
@@ -229,12 +229,12 @@
                             return
                         }
 
-                        api.addGood(this.formData).then((response) => {
+                        api.editGood(this.formData).then((response) => {
                             this.$message({
                                 type: 'success',
                                 duration: 1500,
                                 showClose: true,
-                                message: '新增商品成功!'
+                                message: '商品修改成功!'
                             })
                             this.$router.push({
                                 path: '/goodList'
@@ -260,6 +260,8 @@
             this.getSizeSkuSelect()
             this.getCookSkuSelect()
             this.formRestEvent()
+            this.formData = this.$store.state.currentModelId
+            this.imageUrl3 = this.formData.img
 
         }
 

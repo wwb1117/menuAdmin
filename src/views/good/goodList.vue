@@ -10,7 +10,7 @@
             <div class="model_content_inner">
                 <div class="content_title">
                     <el-input size="small" placeholder="请输入商品名称" clearable @clear="searchInputClear" prefix-icon="el-icon-search"
-                        :style="{width: '378px'}" @keyup.enter.native="searchInputClear" v-model="tableParam.sellerName">
+                        :style="{width: '378px'}" @keyup.enter.native="searchInputClear" v-model="tableParam.goodName">
                     </el-input>
                     <el-button @click="searchInputClear" :style="{margin: '0 10px'}" type="primary" size="small">搜索</el-button>
                 </div>
@@ -23,7 +23,7 @@
                             <span class="color_blue goodmore" v-text="scope.row.goodName"></span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="goodId" label="商品ID">
+                    <el-table-column prop="_id" label="商品ID">
                     </el-table-column>
                     <el-table-column prop="categoryName" label="所属类目">
                     </el-table-column>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+    import api from 'api/good'
     export default {
         data() {
             return {
@@ -88,14 +89,32 @@
                 this.getTableData()
             },
             getTableData() {
-
+                api.getGoodList(this.tableParam).then((response) => {
+                    this.tableData = response.data.list
+                    this.totalPage = response.data.total
+                })
             },
             tablePropEvent(rowData, type) {
                 if (type == 1) { //修改
-
+                    this.$store.commit('setCurrentModelId', rowData)
+                    this.$router.push({
+                        path: '/editGood'
+                    })
                 }
                 if (type == 2) { //删除
+                    var obj = {
+                        id: rowData._id
+                    }
 
+                    api.removeGood(obj).then((response) => {
+                        this.$message({
+                            type: 'success',
+                            duration: 1500,
+                            showClose: true,
+                            message: '删除商品成功!'
+                        })
+                        this.getTableData()
+                    })
                 }
 
             },

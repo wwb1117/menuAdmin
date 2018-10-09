@@ -78,6 +78,31 @@
                 <el-button size="small" type="primary" @click="addEvent">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 修改 -->
+        <el-dialog
+            title="修改类目"
+            :visible.sync="editDialogVisible"
+            :close-on-click-modal="false"
+            @close="editdialogClose"
+            width="30%"
+           >
+            <el-form class="myForm" ref="editSkuForm" :rules="rules" :model="editFormData"
+                    label-position="right" size="small" label-width="120px">
+                    <el-form-item prop="skuType" label="规格类型">
+                        <el-select v-model="editFormData.skuType" placeholder="请选择规格类型">
+                            <el-option label="大小规格" value="1"></el-option>
+                            <el-option label="做法规格" value="2"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="skuName" label="规格名称">
+                        <el-input v-model="editFormData.skuName" placeholder="请输入规格名称"></el-input>
+                    </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="editDialogVisible = false">取 消</el-button>
+                <el-button size="small" type="primary" @click="editEvent">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -87,11 +112,13 @@
         data() {
             return {
                 addDialogVisible: false,
+                editDialogVisible: false,
                 totalPage: 0,
                 addFormData: {
                     skuType: '',
                     skuName: ''
                 },
+                editFormData: {},
                 rules:{
                     skuType: [
                         {required: true, message: '请选择规格类型', trigger: 'blur'}
@@ -111,6 +138,12 @@
         },
         computed: {},
         methods: {
+            editdialogClose(){
+                for (var kk in this.editFormData) {
+                    this.editFormData[kk] = ''
+                }
+                this.$refs.editSkuForm.clearValidate()
+            },
             dialogClose(){
                 for (var kk in this.addFormData) {
                     this.addFormData[kk] = ''
@@ -140,6 +173,22 @@
                     }
                 })
             },
+            editEvent(){
+                this.$refs['editSkuForm'].validate((valid) => {
+                    if (valid) {
+                        api.editSku(this.editFormData).then((response) => {
+                            this.editDialogVisible = false
+                            this.getTableData()
+                            this.$message({
+                                type: 'success',
+                                duration: 1500,
+                                showClose: true,
+                                message: '规格修改成功!'
+                            })
+                        })
+                    }
+                })
+            },
             searchInputClear() {
                 this.tableParam.pageNo = 1
                 this.getTableData()
@@ -160,10 +209,24 @@
             },
             tablePropEvent(rowData, type) {
                 if (type == 1) { //修改
+                    this.editDialogVisible = true
+                    this.editFormData = rowData
 
                 }
                 if (type == 2) { //删除
+                    var obj = {
+                        id: rowData._id
+                    }
 
+                    api.removeSku(obj).then((response) => {
+                        this.$message({
+                            type: 'success',
+                            duration: 1500,
+                            showClose: true,
+                            message: '删除规格成功!'
+                        })
+                        this.getTableData()
+                    })
                 }
 
             },
