@@ -66,6 +66,7 @@
                 }
 
                 lapi.login(this.userInfo).then(reponse => {
+                    sessionStorage.setItem("user", JSON.stringify(this.userInfo))
                     this.$router.push({
                         path: '/main'
                     });

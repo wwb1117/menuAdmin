@@ -11,5 +11,8 @@ export default {
     },
     getGoodList(data){
         return HttpClient.get('/good/list', data);
+    },
+    makePrice(data){
+        return HttpClient.post('/good/makePrice', data);
     }
 }

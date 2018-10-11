@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
-// import { Message } from 'element-ui';
-import { Loading } from 'element-ui'
+import { Message, Loading } from 'element-ui'
+// import { Loading } from 'element-ui'
 // import router from 'router/index'
 
 // axios 配置
@@ -49,6 +49,11 @@ function checkStatus(response) {
                 resolve(response.data)
             } else {
                 reject(response.data)
+                Message({
+                    message: response.data.msg,
+                    showClose: true,
+                    type: 'warning'
+                });
             }
         } else {
             reject(response.data)

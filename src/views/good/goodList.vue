@@ -32,6 +32,9 @@
                             <el-button @click.native="tablePropEvent(scope.row, 1)" type="text" size="small">
                                 修改
                             </el-button>
+                            <el-button @click.native="tablePropEvent(scope.row, 3)" type="text" size="small">
+                                报价
+                            </el-button>
                             <el-button @click.native="tablePropEvent(scope.row, 2)" type="text" size="small">
                                 删除
                             </el-button>
@@ -45,32 +48,131 @@
                 :page-sizes="[15, 30, 50, 100]" :page-size="15" layout="total, sizes, prev, pager, next, jumper" :total="totalPage">
             </el-pagination>
         </div>
+
+        <!-- 报价 -->
+        <el-dialog
+            title="商品报价"
+            :visible.sync="goodDialogVisible"
+            :close-on-click-modal="false"
+            @close="dialogClose"
+            width="30%"
+           >
+
+           <el-form class="myForm" label-position="right" size="small" label-width="120px" :inline="true" ref="goodPriceForm" :rules="rules" :model="goodPriceForm">
+               <div style="margin-top: 20px">
+                    <el-form-item prop="sizeSkuId" label="大小规格">
+                        <el-select v-model="goodPriceForm.sizeSkuId" placeholder="请选择大小规格">
+                            <el-option v-for="item in sizeSkuData" :key="item._id" :label="item.skuName" :value="item._id"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </div>
+                <div>
+                    <el-form-item prop="cookSkuId" label="做法规格">
+                        <el-select v-model="goodPriceForm.cookSkuId" placeholder="请选择做法规格">
+                            <el-option v-for="item in cookSkuData" :key="item._id" :label="item.skuName" :value="item._id"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </div>
+                <div>
+                    <el-form-item prop="price" label="售价">
+                        <el-input style="width: 194px" v-model="goodPriceForm.price" placeholder="请输入售价"></el-input>
+                    </el-form-item>
+                </div>
+
+           </el-form>
+
+
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="goodDialogVisible = false">取 消</el-button>
+                <el-button size="small" type="primary" @click="makePriceEvent">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
     import api from 'api/good'
+    import sapi from 'api/sku'
     export default {
         data() {
             return {
-                selectTableData: [],
-                tableHeight: 500,
+                sizeSkuData: [],
+                cookSkuData: [],
                 totalPage: 0,
                 tableParam: {
                     pageNo: 1,
                     pageSize: 15,
                     goodName: ''
                 },
-                tableData: [{
-                    goodName: '小鸡炖蘑菇',
-                    img: 'http://192.168.1.100:3000/code/imgcode1.jpg',
-                    goodId: '77581',
-                    categoryName: '精品类'
-                }]
+                goodDialogVisible: false,
+                goodPriceForm: {
+                    goodId: '',
+                    sizeSkuId: '',
+                    cookSkuId: '',
+                    price: ''
+                },
+                rules: {
+                    sizeSkuId: [{
+                        required: true,
+                        message: '请选择大小规格',
+                        trigger: 'blur'
+                    }],
+                    cookSkuId: [{
+                        required: true,
+                        message: '请选择做法规格',
+                        trigger: 'blur'
+                    }],
+                    price: [{
+                        required: true,
+                        message: '请输入售价',
+                        trigger: 'blur'
+                    }],
+                },
+                tableData: []
             }
         },
         computed: {},
         methods: {
+            makePriceEvent(){
+                api.makePrice(this.goodPriceForm).then((response) => {
+                    this.$message({
+                        type: 'success',
+                        duration: 1500,
+                        showClose: true,
+                        message: '商品报价成功!'
+                    })
+                    this.goodDialogVisible = false
+                })
+            },
+            getSizeSkuSelect(){
+                var param = {
+                    pageNo: 1,
+                    pageSize: 1000,
+                    skuType: 1,
+                    skuName: ''
+                }
+
+                sapi.getSkuList(param).then((response) => {
+                    this.sizeSkuData = response.data.list
+                })
+            },
+            getCookSkuSelect(){
+                var param = {
+                    pageNo: 1,
+                    pageSize: 1000,
+                    skuType: 2,
+                    skuName: ''
+                }
+
+                sapi.getSkuList(param).then((response) => {
+                    this.cookSkuData = response.data.list
+                })
+            },
+            dialogClose(){
+                for (var kk in this.goodPriceForm) {
+                    this.goodPriceForm[kk] = ''
+                }
+            },
             addBtn() {
                 this.$router.push({
                     path: '/addGood'
@@ -116,6 +218,10 @@
                         this.getTableData()
                     })
                 }
+                if (type == 3) { //报价
+                    this.goodDialogVisible = true
+                    this.goodPriceForm.goodId = rowData._id
+                }
 
             },
 
@@ -124,9 +230,8 @@
         },
         activated() {
             this.getTableData()
-        },
-        created() {
-            this.getTableData()
+            this.getSizeSkuSelect()
+            this.getCookSkuSelect()
         },
         mounted() {}
     }

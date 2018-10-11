@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/views/home/home'
 import login from '@/views/login/login'
+import { Message } from 'element-ui'
+// import store from 'store'
 
 Vue.use(Router)
 
@@ -28,6 +30,46 @@ var router = new Router({
         }
 
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    // 登录拦截
+    if (to.fullPath == '/'){
+        if (sessionStorage.getItem('user')){
+            next()
+            return
+        } else {
+            Message({
+                message: '会话已过期,请重新登录!',
+                showClose: true,
+                type: 'warning'
+            });
+
+            next({ path: '/login' })
+            return
+        }
+    } else if (to.fullPath == '/login'){
+        next();
+        return
+    } else if (to.fullPath == '/main'){
+        //从其他页面跳转到首页相关操作
+        next();
+        return
+    } else {
+        if (sessionStorage.getItem('user')){
+            next();
+            return
+        } else {
+            Message({
+                message: '会话已过期,请重新登录!',
+                showClose: true,
+                type: 'warning'
+            });
+
+            next({ path: '/login' })
+            return
+        }
+    }
 })
 
 export default router
