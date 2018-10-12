@@ -7,7 +7,7 @@
                 <el-button type="primary" size="small">下载模板</el-button>
             </div> -->
         </div>
-        <div class="model_content" :style="{height: $store.state.modelContentHeight + 'px'}">
+        <div class="model_content" :style="{height: $store.state.modelContentHeight + 'px', overflow: 'auto'}">
             <div class="model_content_inner">
                 <el-card shadow="hover" class="cardSuccess">
                     <div slot="header" class="clearfix">

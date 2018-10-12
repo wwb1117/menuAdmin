@@ -126,7 +126,7 @@
                         required: true,
                         message: '请输入售价',
                         trigger: 'blur'
-                    }],
+                    }]
                 },
                 tableData: []
             }
