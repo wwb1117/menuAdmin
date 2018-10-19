@@ -13,9 +13,9 @@
                 <li @click="firstMenuClickEvent($event, 4)" :text="'桌码'" class="fa fa-bullseye">桌码</li>
             </ul>
             <el-popover placement="bottom" v-model="popoverisShow" width="127" trigger="click" :style="{textAlign: 'center'}">
-                <div @click="editPasswordEvent" class="dropdown">
+                <!-- <div @click="editPasswordEvent" class="dropdown">
                     修改密码
-                </div>
+                </div> -->
                 <div @click="loginOutEvent" class="dropdown">
                     退出系统
                 </div>
@@ -25,7 +25,8 @@
                             <img src="../../../static/img/login/adm.png" alt="头像">
                         </div>
                         <br>
-                        <span>wwwwww</span>
+                        <span>{{myBase.splitUserName($store.state.userInfo.username)}}</span>
+                        <!-- <span>wwww</span> -->
                         <span :class="[popoverisShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom']"></span>
                     </div>
                 </div>
@@ -86,6 +87,9 @@
                     //         path: '/login'
                     //     })
                     // })
+                    this.$router.push({
+                        path: '/login'
+                    })
                 })
             },
             editPasswordEvent() {
@@ -95,7 +99,7 @@
             }
         },
         created() {
-
+            console.log(this.$store.state.userInfo)
         }
 
     };

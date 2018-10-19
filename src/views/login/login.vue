@@ -2,7 +2,7 @@
     <div class="login_wrap" :style="{height: $store.state.device.height + 'px', background: '#f5f5f5'}">
         <div class="login_box">
             <div class="login_logo">
-                <img src="../../../static/img/login/login_logo.png" alt="妈妈去哪儿">
+                <img style="width: 320px" src="../../../static/img/login/login.png" alt="妈妈去哪儿">
             </div>
             <div class="login_content">
                 <div class="login_title">登录</div>
@@ -70,6 +70,7 @@
                     this.$router.push({
                         path: '/main'
                     });
+                    this.$store.commit('setUserInfo', this.userInfo)
                 });
             }
         },
@@ -108,7 +109,6 @@
 
     .login_logo {
         text-align: center;
-        margin-bottom: 22px;
     }
 
     .login_content {
