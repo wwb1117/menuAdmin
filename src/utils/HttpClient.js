@@ -8,7 +8,8 @@ import { Message, Loading } from 'element-ui'
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 50000;
 // 根据实际情况，调整为服务器地址
-axios.defaults.baseURL = 'https://www.wangwenbei.cn/api';
+axios.defaults.baseURL = '/api'; //本地服务
+// axios.defaults.baseURL = 'https://www.wangwenbei.cn/api'; //服务器地址
 
 var loader = null
 
