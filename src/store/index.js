@@ -8,14 +8,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         version: '1.0',
-        baseUrl: '',
         device: {
             width: null,
             height: null
         },
         modelContentHeight: null,
         modelContentWidth: null,
-        currentModelId: '',
+
+        currentMenuId: 1,
         userInfo: null
     },
     mutations: {
@@ -30,9 +30,9 @@ const store = new Vuex.Store({
         setModelContentWidth(state, value){
             state.modelContentWidth = value
         },
-        setCurrentModelId(state, value){
-            state.currentModelId = value
-            window.localStorage.setItem("currentModelId", JSON.stringify(state.currentModelId))
+        setCurrentMenuId(state, value){
+            state.currentMenuId = value
+            window.localStorage.setItem("currentMenuId", value)
         },
         setUserInfo(state, value){
             state.userInfo = value

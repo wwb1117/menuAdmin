@@ -33,6 +33,14 @@ store.commit('setDevice', {width: winwidth, height: winheight});
 store.commit('setModelContentHeight', winheight - 100);
 store.commit('setModelContentWidth', winwidth - 220);
 
+var userInfo = window.localStorage.getItem("userInfo")
+var menuId = window.localStorage.getItem("currentMenuId")
+
+userInfo = JSON.parse(userInfo)
+
+store.commit('setUserInfo', userInfo)
+store.commit('setCurrentMenuId', menuId)
+
 Vue.use(ElementUI)
 
 /* eslint-disable no-new */

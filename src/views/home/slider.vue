@@ -5,12 +5,12 @@
                 <img src="../../../static/img/logo.png" alt="妈妈去哪儿">
             </div>
             <ul id="firstMenu_ul">
-                <li @click="firstMenuClickEvent($event, 1)" :text="'统计'" class="fa fa-line-chart active">统计</li>
-                <li @click="firstMenuClickEvent($event, 2)" :text="'商品'" class="fa fa fa-th">商品</li>
-                <li @click="firstMenuClickEvent($event, 6)" :text="'规格'" class="fa fa fa-street-view">规格</li>
-                <li @click="firstMenuClickEvent($event, 5)" :text="'类目'" class="fa fa fa-modx">类目</li>
-                <li @click="firstMenuClickEvent($event, 3)" :text="'订单'" class="fa fa-file-text-o">订单</li>
-                <li @click="firstMenuClickEvent($event, 4)" :text="'桌码'" class="fa fa-bullseye">桌码</li>
+                <li @click="firstMenuClickEvent($event, 1)" :text="'统计'" :class="[currenMenuId == 1 ? 'active' : '']" class="fa fa-line-chart">统计</li>
+                <li @click="firstMenuClickEvent($event, 2)" :text="'商品'" :class="[currenMenuId == 2 ? 'active' : '']" class="fa fa fa-th">商品</li>
+                <li @click="firstMenuClickEvent($event, 6)" :text="'规格'" :class="[currenMenuId == 6 ? 'active' : '']" class="fa fa fa-street-view">规格</li>
+                <li @click="firstMenuClickEvent($event, 5)" :text="'类目'" :class="[currenMenuId == 5 ? 'active' : '']" class="fa fa fa-modx">类目</li>
+                <li @click="firstMenuClickEvent($event, 3)" :text="'订单'" :class="[currenMenuId == 3 ? 'active' : '']" class="fa fa-file-text-o">订单</li>
+                <li @click="firstMenuClickEvent($event, 4)" :text="'桌码'" :class="[currenMenuId == 4 ? 'active' : '']" class="fa fa-bullseye">桌码</li>
             </ul>
             <el-popover placement="bottom" v-model="popoverisShow" width="127" trigger="click" :style="{textAlign: 'center'}">
                 <!-- <div @click="editPasswordEvent" class="dropdown">
@@ -42,16 +42,19 @@
         data() {
             return {
                 baseMenu: null,
+                currenMenuId: this.$store.state.currentMenuId,
                 popoverisShow: false
             };
         },
         computed: {},
         methods: {
             firstMenuClickEvent($event, type) {
-                $('#firstMenu_ul>li').removeClass('active')
-                var tha = $event.currentTarget
+                // $('#firstMenu_ul>li').removeClass('active')
+                // var tha = $event.currentTarget
 
-                $(tha).addClass('active')
+                this.$store.commit('setCurrentMenuId', type)
+                this.currenMenuId = type
+
                 if (type == 1) {
                     this.$router.push({
                         path: '/main'
@@ -82,11 +85,6 @@
 
             loginOutEvent() {
                 this.myBase.confirm('你确定要退出登录?', () => {
-                    // api.loginOut().then(() => {
-                    //     this.$router.push({
-                    //         path: '/login'
-                    //     })
-                    // })
                     this.$router.push({
                         path: '/login'
                     })

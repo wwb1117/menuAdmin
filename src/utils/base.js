@@ -98,6 +98,9 @@ export default {
         return type + '-' + sixNum
     },
     splitUserName(str) {
+        if (typeof str == 'undefined') {
+            return ""
+        }
         if (str.length > 7) {
             return str.substring(0, 6) + '...'
         } else {
